@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/config.dart';
+import 'package:flutter_base_project/logger/error_logger.dart';
+import 'package:flutter_base_project/logger/sentry_error_logger.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> initApp() async {
@@ -19,7 +21,10 @@ Future<void> initApp() async {
     },
     onError: (error, stackTrace) async {
       if (Config.appMode == AppMode.RELEASE) {
-        //TODO Log Error event
+        await getErrorLogger().logEvent(
+          exception: error,
+          stackTrace: stackTrace,
+        );
       }
     },
   );
@@ -33,7 +38,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    var data = EasyLocalizationProvider.of(context).data;
+    final data = EasyLocalizationProvider.of(context).data;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       //TODO Change App Title
@@ -63,4 +68,8 @@ class _AppState extends State<App> {
       ),
     );
   }
+}
+
+ErrorLogger getErrorLogger() {
+  return SentryErrorLogger();
 }
