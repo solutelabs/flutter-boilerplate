@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/config.dart';
 import 'package:flutter_base_project/logger/error_logger.dart';
@@ -10,10 +11,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 Future<void> initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  FlutterError.onError = (FlutterErrorDetails details) async {
-    Zone.current.handleUncaughtError(details.exception, details.stack);
-    //TODO Log to Crashlytics
-  };
+  Crashlytics.instance.enableInDevMode = false;
+  FlutterError.onError = Crashlytics.instance.recordFlutterError;
 
   await runZoned<Future<Null>>(
     () async {
@@ -21,6 +20,7 @@ Future<void> initApp() async {
     },
     onError: (error, stackTrace) async {
       if (Config.appMode == AppMode.RELEASE) {
+        await Crashlytics.instance.recordError(error, stackTrace);
         await getErrorLogger().logEvent(
           exception: error,
           stackTrace: stackTrace,
