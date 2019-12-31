@@ -1,6 +1,6 @@
 import 'package:device_info/device_info.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_base_project/error_logger/sentry_error_logger.dart';
+import 'package:flutter_base_project/src/error_logger/sentry_error_logger.dart';
 import 'package:package_info/package_info.dart';
 
 abstract class ErrorLogger {

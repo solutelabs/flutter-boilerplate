@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_base_project/error_logger/error_logger.dart';
+import 'package:flutter_base_project/src/error_logger/error_logger.dart';
 import 'package:sentry/sentry.dart';
 
 class SentryErrorLogger implements ErrorLogger {

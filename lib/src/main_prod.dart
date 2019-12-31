@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter_base_project/config.dart';
-import 'package:flutter_base_project/app.dart';
+import 'package:flutter_base_project/src/app.dart';
+import 'package:flutter_base_project/src/config.dart';
 
 Future<void> main() async {
   Config.appFlavor = Production();
