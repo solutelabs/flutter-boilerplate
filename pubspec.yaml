@@ -22,7 +22,9 @@ dependencies:
 
   sentry: ^3.0.0+1
 
+  #Firebase
   firebase_crashlytics: ^0.1.2+4
+  firebase_analytics: ^5.0.9
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/analytics/analytics.dart';
 import 'package:flutter_base_project/config.dart';
 import 'package:flutter_base_project/error_logger/error_logger.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -52,6 +53,9 @@ class _AppState extends State<App> {
       ],
       supportedLocales: [
         Locale('en', 'US'),
+      ],
+      navigatorObservers: [
+        navigationObserverAnalytics(),
       ],
       theme: ThemeData(
         primarySwatch: Colors.blue,
