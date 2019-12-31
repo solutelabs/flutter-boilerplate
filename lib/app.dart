@@ -4,8 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/config.dart';
-import 'package:flutter_base_project/logger/error_logger.dart';
-import 'package:flutter_base_project/logger/sentry_error_logger.dart';
+import 'package:flutter_base_project/error_logger/error_logger.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> initApp() async {
@@ -68,8 +67,4 @@ class _AppState extends State<App> {
       ),
     );
   }
-}
-
-ErrorLogger getErrorLogger() {
-  return SentryErrorLogger();
 }
