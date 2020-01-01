@@ -26,6 +26,7 @@ dependencies:
   firebase_crashlytics: ^0.1.2+4
   firebase_analytics: ^5.0.9
   firebase_performance: ^0.3.1+5
+  firebase_remote_config: ^0.3.0+1
 
   performance_interceptor:
     git:
