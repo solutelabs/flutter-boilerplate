@@ -6,7 +6,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/src/analytics/analytics.dart';
-import 'package:flutter_base_project/src/config.dart';
+import 'package:flutter_base_project/config.dart';
 import 'package:flutter_base_project/src/error_logger/error_logger.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http_interceptor/http_interceptor.dart';
