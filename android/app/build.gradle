@@ -57,12 +57,17 @@ android {
     productFlavors {
         development {
             dimension "api"
+            applicationIdSuffix ".development"
+            resValue "string", "app_name", "Flutter-Dev"
         }
         staging {
             dimension "api"
+            applicationIdSuffix ".staging"
+            resValue "string", "app_name", "Flutter-Staging"
         }
         production {
             dimension "api"
+            resValue "string", "app_name", "Flutter-Base"
         }
     }
 }
