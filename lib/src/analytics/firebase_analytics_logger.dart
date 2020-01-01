@@ -1,5 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter_base_project/analytics/analytics.dart';
+import 'package:flutter_base_project/src/analytics/analytics.dart';
 
 class FirebaseAnalyticsLogger implements AnalyticsLogger {
   FirebaseAnalytics _client;
