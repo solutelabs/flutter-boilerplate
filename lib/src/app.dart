@@ -1,18 +1,28 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/src/analytics/analytics.dart';
 import 'package:flutter_base_project/src/config.dart';
 import 'package:flutter_base_project/src/error_logger/error_logger.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:http_interceptor/http_interceptor.dart';
+import 'package:performance_interceptor/dio_performance_interceptor.dart';
+import 'package:performance_interceptor/performance_interceptor.dart';
 
 Future<void> initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   Crashlytics.instance.enableInDevMode = false;
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
+
+  final shouldEnablePerformanceMonitoring =
+      Config.appFlavor is Production && Config.appMode == AppMode.RELEASE;
+  await FirebasePerformance.instance
+      .setPerformanceCollectionEnabled(shouldEnablePerformanceMonitoring);
 
   await runZoned<Future<Null>>(
     () async {
@@ -63,8 +73,31 @@ class _AppState extends State<App> {
       home: Scaffold(
         body: Center(
           child: Builder(
-            builder: (context) => Text(
-              AppLocalizations.of(context).tr('welcome_message'),
+            builder: (context) => Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  AppLocalizations.of(context).tr('welcome_message'),
+                ),
+                RaisedButton(
+                  child: Text('Action'),
+                  onPressed: () async {
+                    final url = 'https://jsonplaceholder.typicode.com/photos';
+                    final client = HttpClientWithInterceptor.build(
+                      interceptors: [
+                        HttpPerformanceInterceptor(),
+                      ],
+                    );
+                    await client.get(url);
+                    print("HTTP RESPONSE");
+
+                    final dio = Dio();
+                    dio.interceptors.add(DioPerformanceInterceptor());
+                    await dio.get(url);
+                    print("DIO RESPONSE");
+                  },
+                )
+              ],
             ),
           ),
         ),
