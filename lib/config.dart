@@ -4,17 +4,17 @@ abstract class Flavor {
 
 class Development implements Flavor {
   @override
-  String get name => "DEVELOPMENT";
+  String get name => "development";
 }
 
 class Staging implements Flavor {
   @override
-  String get name => "STAGING";
+  String get name => "staging";
 }
 
 class Production implements Flavor {
   @override
-  String get name => "PRODUCTION";
+  String get name => "production";
 }
 
 enum AppMode {
