@@ -1,0 +1,30 @@
+include: package:pedantic/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - lib/**.g.dart
+
+linter:
+  rules:
+    - camel_case_types
+    - empty_constructor_bodies
+    - cancel_subscriptions
+    - close_sinks
+    - unnecessary_await_in_return
+    - unnecessary_new
+    - unnecessary_null_aware_assignments
+    - no_duplicate_case_values
+    - throw_in_finally
+    - avoid_print
+    - control_flow_in_finally
+    - unnecessary_statements
+    - always_declare_return_types
+    - always_put_control_body_on_new_line
+    - list_remove_unrelated_type
+    - avoid_renaming_method_parameters
+    - avoid_void_async
+    - empty_catches
+    - prefer_final_in_for_each
+    - prefer_is_not_empty
+    - prefer_is_empty
+    - unawaited_futures

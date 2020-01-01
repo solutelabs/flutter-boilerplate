@@ -98,12 +98,12 @@ class _AppState extends State<App> {
                       ],
                     );
                     await client.get(url);
-                    print("HTTP RESPONSE");
+                    debugPrint("HTTP RESPONSE");
 
                     final dio = Dio();
                     dio.interceptors.add(DioPerformanceInterceptor());
                     await dio.get(url);
-                    print("DIO RESPONSE");
+                    debugPrint("DIO RESPONSE");
                   },
                 )
               ],
