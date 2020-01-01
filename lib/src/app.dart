@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base_project/src/analytics/analytics.dart';
 import 'package:flutter_base_project/config.dart';
 import 'package:flutter_base_project/src/error_logger/error_logger.dart';
+import 'package:flutter_base_project/src/remote_config/remote_config_repository.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 import 'package:performance_interceptor/dio_performance_interceptor.dart';
@@ -23,6 +24,11 @@ Future<void> initApp() async {
       Config.appFlavor is Production && Config.appMode == AppMode.RELEASE;
   await FirebasePerformance.instance
       .setPerformanceCollectionEnabled(shouldEnablePerformanceMonitoring);
+
+  try {
+    await RemoteConfigRepository().initConfig();
+    await RemoteConfigRepository().syncConfig();
+  } catch (_) {}
 
   await runZoned<Future<Null>>(
     () async {
@@ -78,6 +84,9 @@ class _AppState extends State<App> {
               children: <Widget>[
                 Text(
                   AppLocalizations.of(context).tr('welcome_message'),
+                ),
+                Text(
+                  RemoteConfigRepository().getString('welcome_msg'),
                 ),
                 RaisedButton(
                   child: Text('Action'),
