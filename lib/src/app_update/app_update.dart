@@ -1,8 +1,10 @@
 import 'dart:io' show Platform;
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/app_constants.dart';
 import 'package:flutter_base_project/src/app_update/app_update_key_provider.dart';
 import 'package:flutter_base_project/src/remote_config/remote_config_repository.dart';
 import 'package:package_info/package_info.dart';
@@ -40,9 +42,9 @@ Future<void> promptAppUpdate(BuildContext context) async {
   if (update == UpdateMode.FlexibleUpdate) {
     Scaffold.of(context).showSnackBar(
       SnackBar(
-        content: Text('New App Update Available'),
+        content: Text(AppLocalizations.of(context).tr('flexible_update_msg')),
         action: SnackBarAction(
-          label: 'Update',
+          label: AppLocalizations.of(context).tr('btn_update'),
           onPressed: () => openStore(),
         ),
       ),
@@ -55,11 +57,13 @@ Future<void> promptAppUpdate(BuildContext context) async {
       barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
-          title: Text('New Update available'),
-          content: Text('Update App to keep using features.'),
+          title:
+              Text(AppLocalizations.of(context).tr('title_immediate_update')),
+          content:
+              Text(AppLocalizations.of(context).tr('content_immediate_update')),
           actions: <Widget>[
             FlatButton(
-              child: Text('UPDATE'),
+              child: Text(AppLocalizations.of(context).tr('btn_update')),
               onPressed: () => openStore(),
             )
           ],
@@ -105,10 +109,9 @@ Future<String> getCurrentAppVersion() async {
 Future<void> openStore() async {
   String url;
   if (Platform.isAndroid) {
-    url =
-        "https://play.app.goo.gl/?link=https://play.google.com/store/apps/details?id=com.eonian.reelo&ddl=1&pcampaignid=web_ddl_1";
+    url = androidPlayStoreUrl;
   } else if (Platform.isIOS) {
-    url = "https://apps.apple.com/in/app/reelo-get-rewarded/id1195820317";
+    url = iosAppStoreUrl;
   }
   if (await canLaunch(url)) {
     await launch(url);
