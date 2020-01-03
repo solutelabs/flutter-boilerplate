@@ -7,8 +7,11 @@ abstract class NetworkConnectivityChecker {
   Future<void> validateNetworkConnectivity();
 }
 
-NetworkConnectivityChecker providerNetworkConnectivityChecker() {
-  return NetworkConnectivity(Connectivity());
+final NetworkConnectivityChecker _instance =
+    NetworkConnectivity(Connectivity());
+
+NetworkConnectivityChecker networkConnectivityChecker() {
+  return _instance;
 }
 
 class NetworkConnectivity implements NetworkConnectivityChecker {
