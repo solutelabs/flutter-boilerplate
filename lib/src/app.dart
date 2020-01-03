@@ -7,6 +7,7 @@ import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/src/analytics/analytics.dart';
 import 'package:flutter_base_project/config.dart';
+import 'package:flutter_base_project/src/app_update/app_update.dart';
 import 'package:flutter_base_project/src/error_logger/error_logger.dart';
 import 'package:flutter_base_project/src/remote_config/remote_config_repository.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -28,7 +29,9 @@ Future<void> initApp() async {
   try {
     await RemoteConfigRepository().initConfig();
     await RemoteConfigRepository().syncConfig();
-  } catch (_) {}
+  } catch (e) {
+    debugPrint(e);
+  }
 
   await runZoned<Future<Null>>(
     () async {
@@ -105,7 +108,8 @@ class _AppState extends State<App> {
                     await dio.get(url);
                     debugPrint("DIO RESPONSE");
                   },
-                )
+                ),
+                AppUpdateWidget(),
               ],
             ),
           ),
