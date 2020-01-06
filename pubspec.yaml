@@ -35,6 +35,9 @@ dependencies:
       url: git@gitlab.com:milind.mevada/firebase_performance_interceptor.git
 
   connectivity: ^0.4.6+1
+  shared_preferences: ^0.5.6
+  permission_handler: ^4.0.0
+  cached_network_image: ^2.0.0
 
 dev_dependencies:
   flutter_test:
