@@ -32,7 +32,7 @@ dependencies:
 
   performance_interceptor:
     git:
-      url: git@gitlab.com:milind.mevada/firebase_performance_interceptor.git
+      url: git@github.com:solutelabs/firebase_performance_interceptor.git
 
   connectivity: ^0.4.6+1
   shared_preferences: ^0.5.6
