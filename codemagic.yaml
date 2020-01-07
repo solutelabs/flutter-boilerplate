@@ -1,0 +1,139 @@
+workflows:
+  development:
+    name: Development
+    environment:
+      flutter: stable
+    cache:
+      cache_paths:
+        - $FCI_BUILD_DIR/build
+    scripts:
+      - |
+        # fetch codemagic helper scripts
+        rm -rf ~/codemagic-build-scripts
+        git clone https://github.com/NevercodeHQ/codemagic-build-scripts.git ~/codemagic-build-scripts/ --depth 1
+      - |
+        # set up debug keystore
+        rm -f ~/.android/debug.keystore
+        keytool -genkeypair \
+          -alias androiddebugkey \
+          -keypass android \
+          -keystore ~/.android/debug.keystore \
+          -storepass android \
+          -dname 'CN=Android Debug,O=Android,C=US' \
+          -keyalg 'RSA' \
+          -keysize 2048 \
+          -validity 10000
+      - |
+        # set up local properties
+        echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/android/local.properties"
+      - flutter packages pub get
+      - flutter build appbundle --release -flavor development -t main_dev.dart
+      - |
+        # generate universal apk signed with debug key
+        '~/codemagic-build-scripts/android/generate-universal-apks' \
+          --ks ~/.android/debug.keystore \
+          --ks-pass android \
+          --ks-key-alias androiddebugkey \
+          --key-pass android \
+          --pattern 'build/**/outputs/**/*.aab'
+    artifacts:
+      - build/**/outputs/**/*.apk
+      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/mapping.txt
+      - flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - milind.mevada@solutelabs.com
+  staging:
+    name: Staging
+    environment:
+      flutter: stable
+    cache:
+      cache_paths:
+        - $FCI_BUILD_DIR/build
+    scripts:
+      - |
+        # fetch codemagic helper scripts
+        rm -rf ~/codemagic-build-scripts
+        git clone https://github.com/NevercodeHQ/codemagic-build-scripts.git ~/codemagic-build-scripts/ --depth 1
+      - |
+        # set up debug keystore
+        rm -f ~/.android/debug.keystore
+        keytool -genkeypair \
+          -alias androiddebugkey \
+          -keypass android \
+          -keystore ~/.android/debug.keystore \
+          -storepass android \
+          -dname 'CN=Android Debug,O=Android,C=US' \
+          -keyalg 'RSA' \
+          -keysize 2048 \
+          -validity 10000
+      - |
+        # set up local properties
+        echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/android/local.properties"
+      - flutter packages pub get
+      - flutter build appbundle --release -flavor staging -t main_staging.dart
+      - |
+        # generate universal apk signed with debug key
+        '~/codemagic-build-scripts/android/generate-universal-apks' \
+          --ks ~/.android/debug.keystore \
+          --ks-pass android \
+          --ks-key-alias androiddebugkey \
+          --key-pass android \
+          --pattern 'build/**/outputs/**/*.aab'
+    artifacts:
+      - build/**/outputs/**/*.apk
+      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/mapping.txt
+      - flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - milind.mevada@solutelabs.com
+  production:
+    name: Production
+    environment:
+      flutter: stable
+    cache:
+      cache_paths:
+        - $FCI_BUILD_DIR/build
+    scripts:
+      - |
+        # fetch codemagic helper scripts
+        rm -rf ~/codemagic-build-scripts
+        git clone https://github.com/NevercodeHQ/codemagic-build-scripts.git ~/codemagic-build-scripts/ --depth 1
+      - |
+        # set up debug keystore
+        rm -f ~/.android/debug.keystore
+        keytool -genkeypair \
+          -alias androiddebugkey \
+          -keypass android \
+          -keystore ~/.android/debug.keystore \
+          -storepass android \
+          -dname 'CN=Android Debug,O=Android,C=US' \
+          -keyalg 'RSA' \
+          -keysize 2048 \
+          -validity 10000
+      - |
+        # set up local properties
+        echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/android/local.properties"
+      - flutter packages pub get
+      - flutter build appbundle --release -flavor production -t main_prod.dart
+      - |
+        # generate universal apk signed with debug key
+        '~/codemagic-build-scripts/android/generate-universal-apks' \
+          --ks ~/.android/debug.keystore \
+          --ks-pass android \
+          --ks-key-alias androiddebugkey \
+          --key-pass android \
+          --pattern 'build/**/outputs/**/*.aab'
+    artifacts:
+      - build/**/outputs/**/*.apk
+      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/mapping.txt
+      - flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - milind.mevada@solutelabs.com
