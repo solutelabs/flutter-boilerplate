@@ -1,16 +1,57 @@
-# flutter_base_project
+# Flutter base Scaffold Project
 
-Scaffold project with all basic setup.
+This is a base flutter scaffold project that has all configuration & setup created. So we can reduce the efforts of basic project setup & project level boilerplate code.
 
-## Getting Started
+## Features 
 
-This project is a starting point for a Flutter application.
+### Flavors (Flutter + Native)
+Production, Staging, Development (with abstract properties)
+Modes: Debug, Release, Profile.
 
-A few resources to get you started if this is your first Flutter project:
+### Localization
+Localization support based on [Easy Localization](https://pub.dev/packages/easy_localization)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Custom Logger (Default Sentry)
+Abstract layer for a custom logger. It has default implementation of [Sentry](https://sentry.io/welcome/).
+It can again be replaced with any other services.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Firebase Crashalytics
+Crashalytics that works in Release and Profile Mode.
+
+### Analytics (Default Firebase)
+Abstract layer for a Custom event logging. It has default implementation of Firebase Analytics. It can again be replaced with any other services.
+
+### Firebase Performance Monitor
+Firebase performance integration to check App freezing, network latency monitoring. (Integrated firebase_performance_interceptor)
+
+### Remote Config
+Integration of firebase remote config.
+
+### Pedantic
+Analysis_options setup for strict lint checks.
+
+### Flavor-wise installable build
+Flavor wise application-id overridden. So that same application with different flavor can be installed simultaneously.
+
+### App Update Prompts (Flexible + Immediate)
+Force upgrade setup based on Firebase Remote config.
+
+Currently it has two configuration
+1. Latest App Version (Build Number)
+2. Latest Stable App Version (Build Number)
+
+If latest app version is greater then current version it will trigger Flexible Update (Snackbar Promot.)
+
+If current app version is below latest stable version, then it will trigger a Immediate (Force) update.
+
+### Other Useful dependencies
+- [Connectivity](https://pub.dev/packages/connectivity)
+- [Shared Preferences](https://pub.dev/packages/shared_preferences)
+- [Path Provider](https://pub.dev/packages/path_provider)
+- [Provider](https://pub.dev/packages/provider)
+- [Permission Handler](https://pub.dev/packages/permission_handler)
+- [Cached Network Image](https://pub.dev/packages/cached_network_image)
+
+
+
+
