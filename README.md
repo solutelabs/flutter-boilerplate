@@ -16,10 +16,10 @@ Abstract layer for a custom logger. It has default implementation of [Sentry](ht
 It can again be replaced with any other services.
 
 ### Firebase Crashalytics
-Crashalytics that works in Release and Profile Mode.
+Crashalytics setup that works in Release and Profile Mode.
 
 ### Analytics (Default Firebase)
-Abstract layer for a Custom event logging. It has default implementation of Firebase Analytics. It can again be replaced with any other services.
+Abstract layer for a Custom event logging. It has a default implementation of Firebase Analytics. It can again be replaced with any other services.
 
 ### Firebase Performance Monitor
 Firebase performance integration to check App freezing, network latency monitoring. (Integrated firebase_performance_interceptor)
@@ -31,18 +31,18 @@ Integration of firebase remote config.
 Analysis_options setup for strict lint checks.
 
 ### Flavor-wise installable build
-Flavor wise application-id overridden. So that same application with different flavor can be installed simultaneously.
+Flavor-wise application-id overridden. So that the same application with different flavors can be installed simultaneously.
 
 ### App Update Prompts (Flexible + Immediate)
 Force upgrade setup based on Firebase Remote config.
 
-Currently it has two configuration
+Currently, it has two configuration
 1. Latest App Version (Build Number)
 2. Latest Stable App Version (Build Number)
 
-If latest app version is greater then current version it will trigger Flexible Update (Snackbar Promot.)
+If the latest app version is higher then the current version, it will trigger Flexible Update (Snackbar Prompt).
 
-If current app version is below latest stable version, then it will trigger a Immediate (Force) update.
+If the current app version is below the latest stable version, then it will trigger an Immediate (Force) update.
 
 ### Other Useful dependencies
 - [Connectivity](https://pub.dev/packages/connectivity)
@@ -51,7 +51,3 @@ If current app version is below latest stable version, then it will trigger a Im
 - [Provider](https://pub.dev/packages/provider)
 - [Permission Handler](https://pub.dev/packages/permission_handler)
 - [Cached Network Image](https://pub.dev/packages/cached_network_image)
-
-
-
-
