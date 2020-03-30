@@ -5,8 +5,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base_project/src/analytics/analytics.dart';
 import 'package:flutter_base_project/config.dart';
+import 'package:flutter_base_project/src/analytics/analytics.dart';
 import 'package:flutter_base_project/src/app_update/app_update.dart';
 import 'package:flutter_base_project/src/error_logger/error_logger.dart';
 import 'package:flutter_base_project/src/remote_config/remote_config_repository.dart';
@@ -22,7 +22,7 @@ Future<void> initApp() async {
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
 
   final shouldEnablePerformanceMonitoring =
-      Config.appFlavor is Production && Config.appMode == AppMode.RELEASE;
+      Config.appFlavor is Production && Config.appMode == AppMode.release;
   await FirebasePerformance.instance
       .setPerformanceCollectionEnabled(shouldEnablePerformanceMonitoring);
 
@@ -30,15 +30,24 @@ Future<void> initApp() async {
     await RemoteConfigRepository().initConfig();
     await RemoteConfigRepository().syncConfig();
   } catch (e) {
-    debugPrint(e);
+    debugPrint(e.toString());
   }
 
-  await runZoned<Future<Null>>(
+  await runZoned<Future<void>>(
     () async {
-      runApp(EasyLocalization(child: App()));
+      runApp(
+        EasyLocalization(
+          path: 'lib/assets/strings',
+          supportedLocales: const <Locale>[
+            Locale('en', 'US'),
+          ],
+          useOnlyLangCode: false,
+          child: App(),
+        ),
+      );
     },
-    onError: (error, stackTrace) async {
-      if (Config.appMode == AppMode.RELEASE) {
+    onError: (error, StackTrace stackTrace) async {
+      if (Config.appMode == AppMode.release) {
         await Crashlytics.instance.recordError(error, stackTrace);
         await getErrorLogger().logEvent(
           exception: error,
@@ -57,7 +66,6 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    final data = EasyLocalizationProvider.of(context).data;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       //TODO Change App Title
@@ -65,14 +73,10 @@ class _AppState extends State<App> {
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
-        EasylocaLizationDelegate(
-          locale: data.locale ?? Locale('en', 'US'),
-          path: 'lib/assets/strings',
-        ),
+        EasyLocalization.of(context).delegate,
       ],
-      supportedLocales: [
-        Locale('en', 'US'),
-      ],
+      locale: EasyLocalization.of(context).locale,
+      supportedLocales: EasyLocalization.of(context).supportedLocales,
       navigatorObservers: [
         navigationObserverAnalytics(),
       ],
@@ -86,15 +90,14 @@ class _AppState extends State<App> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  AppLocalizations.of(context).tr('welcome_message'),
+                  'welcome_message'.tr() as String,
                 ),
                 Text(
                   RemoteConfigRepository().getString('welcome_msg'),
                 ),
                 RaisedButton(
-                  child: Text('Action'),
                   onPressed: () async {
-                    final url = 'https://jsonplaceholder.typicode.com/photos';
+                    const url = 'https://jsonplaceholder.typicode.com/photos';
                     final client = HttpClientWithInterceptor.build(
                       interceptors: [
                         HttpPerformanceInterceptor(),
@@ -108,6 +111,7 @@ class _AppState extends State<App> {
                     await dio.get(url);
                     debugPrint("DIO RESPONSE");
                   },
+                  child: const Text('Action'),
                 ),
                 AppUpdateWidget(),
               ],

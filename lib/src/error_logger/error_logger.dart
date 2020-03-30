@@ -10,7 +10,7 @@ abstract class ErrorLogger {
   });
 }
 
-Future<Map<String, dynamic>> tags() async {
+Future<Map<String, String>> tags() async {
   final info = await PackageInfo.fromPlatform();
   return {
     "platform": defaultTargetPlatform.toString(),
@@ -22,7 +22,7 @@ Future<Map<String, dynamic>> tags() async {
 
 Future<Map<String, dynamic>> extras() async {
   final deviceInfo = DeviceInfoPlugin();
-  final extras = {};
+  final Map<String, dynamic> extras = {};
   if (defaultTargetPlatform == TargetPlatform.android) {
     final info = await deviceInfo.androidInfo;
     extras['device_info'] = {
