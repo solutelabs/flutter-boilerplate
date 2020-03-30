@@ -18,9 +18,9 @@ class Production implements Flavor {
 }
 
 enum AppMode {
-  DEBUG,
-  RELEASE,
-  PROFILE,
+  debug,
+  release,
+  profile,
 }
 
 class Config {
@@ -36,11 +36,11 @@ class Config {
     assert(isDebug = true);
 
     if (isDebug) {
-      _mode = AppMode.DEBUG;
+      _mode = AppMode.debug;
     } else if (const bool.fromEnvironment("dart.vm.product")) {
-      _mode = AppMode.RELEASE;
+      _mode = AppMode.release;
     } else {
-      _mode = AppMode.PROFILE;
+      _mode = AppMode.profile;
     }
 
     return _mode;

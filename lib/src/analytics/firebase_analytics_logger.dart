@@ -25,11 +25,11 @@ class FirebaseAnalyticsLogger implements AnalyticsLogger {
   @override
   void loginUser({Map<String, dynamic> userData}) {
     _client.logLogin();
-    _client.setUserId(userData['id']);
-    _client.setUserProperty(name: 'email', value: userData['email']);
+    _client.setUserId(userData['id'] as String);
+    _client.setUserProperty(name: 'email', value: userData['email'] as String);
     _client.setUserProperty(
       name: 'name',
-      value: userData['name'],
+      value: userData['name'] as String,
     );
   }
 

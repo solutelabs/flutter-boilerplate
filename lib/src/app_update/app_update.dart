@@ -10,7 +10,7 @@ import 'package:flutter_base_project/src/remote_config/remote_config_repository.
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-enum UpdateMode { NoUpdate, FlexibleUpdate, ImmediateUpdate }
+enum UpdateMode { noUpdate, flexibleUpdate, immediateUpdate }
 
 class AppUpdateWidget extends StatefulWidget {
   @override
@@ -35,36 +35,34 @@ Future<void> promptAppUpdate(BuildContext context) async {
     remoteConfigRepository: RemoteConfigRepository(),
   );
 
-  if (update == UpdateMode.NoUpdate) {
-    return null;
+  if (update == UpdateMode.noUpdate) {
+    return;
   }
 
-  if (update == UpdateMode.FlexibleUpdate) {
+  if (update == UpdateMode.flexibleUpdate) {
     Scaffold.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context).tr('flexible_update_msg')),
+        content: Text('flexible_update_msg'.tr() as String),
         action: SnackBarAction(
-          label: AppLocalizations.of(context).tr('btn_update'),
+          label: 'btn_update'.tr() as String,
           onPressed: () => openStore(),
         ),
       ),
     );
   }
 
-  if (update == UpdateMode.ImmediateUpdate) {
+  if (update == UpdateMode.immediateUpdate) {
     return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
-          title:
-              Text(AppLocalizations.of(context).tr('title_immediate_update')),
-          content:
-              Text(AppLocalizations.of(context).tr('content_immediate_update')),
+          title: Text('title_immediate_update'.tr() as String),
+          content: Text('content_immediate_update'.tr() as String),
           actions: <Widget>[
             FlatButton(
-              child: Text(AppLocalizations.of(context).tr('btn_update')),
               onPressed: () => openStore(),
+              child: Text('btn_update'.tr() as String),
             )
           ],
         );
@@ -80,25 +78,25 @@ Future<UpdateMode> checkAppUpdate({
 
   final currentVersion = int.parse(await getCurrentAppVersion());
   final latestStableVersion = int.parse(
-    await remoteConfigRepository.getString(
+    remoteConfigRepository.getString(
       keyProvider.keyLatestStableVersion,
     ),
   );
   final latestVersion = int.parse(
-    await remoteConfigRepository.getString(
+    remoteConfigRepository.getString(
       keyProvider.keyLatestVersion,
     ),
   );
 
   if (currentVersion >= latestVersion) {
-    return UpdateMode.NoUpdate;
+    return UpdateMode.noUpdate;
   }
 
   if (currentVersion < latestStableVersion) {
-    return UpdateMode.ImmediateUpdate;
+    return UpdateMode.immediateUpdate;
   }
 
-  return UpdateMode.FlexibleUpdate;
+  return UpdateMode.flexibleUpdate;
 }
 
 Future<String> getCurrentAppVersion() async {

@@ -23,7 +23,7 @@ class SentryErrorLogger implements ErrorLogger {
   }
 
   @override
-  Future<void> logEvent({exception, StackTrace stackTrace}) async {
+  Future<void> logEvent({dynamic exception, StackTrace stackTrace}) async {
     final extraData = await extras();
     final tagsData = await tags();
     return _client.capture(

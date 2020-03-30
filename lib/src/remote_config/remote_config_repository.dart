@@ -18,7 +18,7 @@ class RemoteConfigRepository {
 
   Future<void> syncConfig() async {
     try {
-      await _config.fetch(expiration: Duration(hours: 3));
+      await _config.fetch(expiration: const Duration(hours: 3));
       await _config.activateFetched();
     } catch (err) {
       if (_config.lastFetchStatus == LastFetchStatus.noFetchYet) {
