@@ -33,7 +33,7 @@ Future<void> initApp() async {
     debugPrint(e.toString());
   }
 
-  await runZoned<Future<void>>(
+  await runZonedGuarded<Future<void>>(
     () async {
       runApp(
         EasyLocalization(
@@ -46,7 +46,7 @@ Future<void> initApp() async {
         ),
       );
     },
-    onError: (error, StackTrace stackTrace) async {
+    (error, StackTrace stackTrace) async {
       if (Config.appMode == AppMode.release) {
         await Crashlytics.instance.recordError(error, stackTrace);
         await getErrorLogger().logEvent(
@@ -90,7 +90,7 @@ class _AppState extends State<App> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'welcome_message'.tr() as String,
+                  'welcome_message'.tr(),
                 ),
                 Text(
                   RemoteConfigRepository().getString('welcome_msg'),

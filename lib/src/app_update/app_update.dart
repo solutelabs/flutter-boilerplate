@@ -42,9 +42,9 @@ Future<void> promptAppUpdate(BuildContext context) async {
   if (update == UpdateMode.flexibleUpdate) {
     Scaffold.of(context).showSnackBar(
       SnackBar(
-        content: Text('flexible_update_msg'.tr() as String),
+        content: Text('flexible_update_msg'.tr()),
         action: SnackBarAction(
-          label: 'btn_update'.tr() as String,
+          label: 'btn_update'.tr(),
           onPressed: () => openStore(),
         ),
       ),
@@ -57,12 +57,12 @@ Future<void> promptAppUpdate(BuildContext context) async {
       barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
-          title: Text('title_immediate_update'.tr() as String),
-          content: Text('content_immediate_update'.tr() as String),
+          title: Text('title_immediate_update'.tr()),
+          content: Text('content_immediate_update'.tr()),
           actions: <Widget>[
             FlatButton(
               onPressed: () => openStore(),
-              child: Text('btn_update'.tr() as String),
+              child: Text('btn_update'.tr()),
             )
           ],
         );
