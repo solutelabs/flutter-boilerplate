@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base_project/config.dart';
 import 'package:flutter_base_project/src/analytics/analytics.dart';
 import 'package:flutter_base_project/src/app_update/app_update.dart';
-import 'package:flutter_base_project/src/error_logger/error_logger.dart';
 import 'package:flutter_base_project/src/remote_config/remote_config_repository.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http_interceptor/http_interceptor.dart';
@@ -46,15 +45,7 @@ Future<void> initApp() async {
         ),
       );
     },
-    (error, StackTrace stackTrace) async {
-      if (Config.appMode == AppMode.release) {
-        await Crashlytics.instance.recordError(error, stackTrace);
-        await getErrorLogger().logEvent(
-          exception: error,
-          stackTrace: stackTrace,
-        );
-      }
-    },
+    Crashlytics.instance.recordError,
   );
 }
 
