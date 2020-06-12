@@ -11,8 +11,8 @@ Modes: Debug, Release, Profile.
 ### Localization
 Localization support based on [Easy Localization](https://pub.dev/packages/easy_localization)
 
-### Custom Logger (Default Sentry)
-Abstract layer for a custom logger. It has default implementation of [Sentry](https://sentry.io/welcome/).
+### Custom Logger (Default Crashlytics)
+Abstract layer for a custom logger. It has default implementation of [Crashlytics](https://firebase.google.com/products/crashlytics/).
 It can again be replaced with any other services.
 
 ### Firebase Crashalytics
