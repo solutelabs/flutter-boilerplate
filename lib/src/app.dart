@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/config.dart';
 import 'package:flutter_base_project/src/analytics/analytics.dart';
@@ -18,8 +20,15 @@ import 'package:performance_interceptor/performance_interceptor.dart';
 Future<void> initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  Crashlytics.instance.enableInDevMode = false;
-  FlutterError.onError = Crashlytics.instance.recordFlutterError;
+  await Firebase.initializeApp();
+
+  if (kDebugMode) {
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+  } else {
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  }
+
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
   final shouldEnablePerformanceMonitoring =
       Config.appFlavor is Production && Config.appMode == AppMode.release;
@@ -48,7 +57,7 @@ Future<void> initApp() async {
     },
     (error, StackTrace stackTrace) async {
       if (Config.appMode == AppMode.release) {
-        await Crashlytics.instance.recordError(error, stackTrace);
+        await FirebaseCrashlytics.instance.recordError(error, stackTrace);
         await getErrorLogger().logEvent(
           exception: error,
           stackTrace: stackTrace,
