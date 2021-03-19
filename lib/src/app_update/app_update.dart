@@ -40,7 +40,7 @@ Future<void> promptAppUpdate(BuildContext context) async {
   }
 
   if (update == UpdateMode.flexibleUpdate) {
-    Scaffold.of(context).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('flexible_update_msg'.tr()),
         action: SnackBarAction(
@@ -60,7 +60,7 @@ Future<void> promptAppUpdate(BuildContext context) async {
           title: Text('title_immediate_update'.tr()),
           content: Text('content_immediate_update'.tr()),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               onPressed: () => openStore(),
               child: Text('btn_update'.tr()),
             )

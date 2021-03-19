@@ -50,7 +50,6 @@ Future<void> initApp() async {
           supportedLocales: const <Locale>[
             Locale('en', 'US'),
           ],
-          useOnlyLangCode: false,
           child: App(),
         ),
       );
@@ -104,7 +103,7 @@ class _AppState extends State<App> {
                 Text(
                   RemoteConfigRepository().getString('welcome_msg'),
                 ),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () async {
                     const url = 'https://jsonplaceholder.typicode.com/photos';
                     final client = HttpClientWithInterceptor.build(

@@ -3,6 +3,8 @@ description: Scaffold project with all basic setup.
 
 version: 1.0.0+2
 
+publish_to: none
+
 environment:
   sdk: ">=2.6.0 <3.0.0"
 
@@ -11,8 +13,6 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-
-  cupertino_icons: ^1.0.0
 
   easy_localization: ^2.3.3
 
