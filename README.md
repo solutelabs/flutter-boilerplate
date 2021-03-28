@@ -51,3 +51,34 @@ If the current app version is below the latest stable version, then it will trig
 - [Provider](https://pub.dev/packages/provider)
 - [Permission Handler](https://pub.dev/packages/permission_handler)
 - [Cached Network Image](https://pub.dev/packages/cached_network_image)
+
+### CI / CD
+
+#### Codemagic
+
+Codemagic.yaml file has been added at the root of source code. It contains sample pipeline for Development build.
+
+###### How to build?
+
+1. Connect the project repository to codemagic using [this guide](https://docs.codemagic.io/getting-started/adding-apps-from-custom-sources/). Codemagic will auto-detect the yaml file which has sample workflow added.
+2. Select workflow and the branch from which buid to be generated. Start Build and it should generate the builds for Android & iOS.
+
+###### What to be configured?
+
+1. **Android**
+- Except `production-store` workflow, all the workflows are configured to use Debug keystore generated on the fly from Codemagic's build machine.
+- For `production-store` workflow, the keystore related environment variables must be replaced with the project specific keystore info.
+
+2. **iOS**
+- Code Signing assets like Certificates, Profiles, etc. needs to be changed based on project's bundle ids and environments. [More info](https://docs.codemagic.io/code-signing-yaml/signing-ios/#manual-code-signing)
+- For code signing profiles, following is recommended:
+- Local distribution (QA, Client Releases, etc) - `adhoc` profiles
+- Store / TestFlight distribution - `appstore` profiles.
+
+###### How to distribute?
+Once codemagic generates the artifacts, we can distribute the apps in various ways.
+
+1. Using Firebase App Distribution. [More info](https://firebase.google.com/docs/app-distribution).
+One can automate the firebase distribution as mentioned [here](https://docs.codemagic.io/publishing-yaml/distribution/#publishing-an-app-to-firebase-app-distribution).
+2. Using platforms like [Diawi](https://www.diawi.com/)
+3. Sharing raw apk and ipa to user.
