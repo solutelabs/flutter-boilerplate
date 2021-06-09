@@ -1,4 +1,5 @@
 abstract class Flavor {
+
   String get name;
 }
 

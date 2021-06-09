@@ -14,7 +14,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  easy_localization: ^2.3.3
+  easy_localization: ^3.0.0
 
   device_info: ^1.0.0
 
@@ -33,10 +33,10 @@ dependencies:
       url: https://github.com/solutelabs/firebase_performance_interceptor.git
 
   connectivity: ^2.0.2
-  shared_preferences: ^0.5.12+4
+  shared_preferences: ^2.0.6
   permission_handler: ^5.1.0+2
   cached_network_image: ^2.5.1
-  path_provider: ^1.6.28
+  path_provider: ^2.0.2
   provider: ^4.3.3
 
 dev_dependencies:
