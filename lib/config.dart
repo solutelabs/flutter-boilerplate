@@ -27,7 +27,7 @@ enum AppMode {
 class Config {
   Config._();
 
-  static Flavor appFlavor;
+  static Flavor? appFlavor;
   static AppMode appMode = _getCurrentMode();
 
   static AppMode _getCurrentMode() {

@@ -30,7 +30,7 @@ class _AppUpdateWidgetState extends State<AppUpdateWidget> {
   }
 }
 
-Future<void> promptAppUpdate(BuildContext context) async {
+Future<void> promptAppUpdate(BuildContext? context) async {
   final update = await checkAppUpdate(
     remoteConfigRepository: RemoteConfigRepository(),
   );
@@ -40,7 +40,7 @@ Future<void> promptAppUpdate(BuildContext context) async {
   }
 
   if (update == UpdateMode.flexibleUpdate) {
-    ScaffoldMessenger.of(context).showSnackBar(
+    ScaffoldMessenger.of(context!).showSnackBar(
       SnackBar(
         content: Text('flexible_update_msg'.tr()),
         action: SnackBarAction(
@@ -53,7 +53,7 @@ Future<void> promptAppUpdate(BuildContext context) async {
 
   if (update == UpdateMode.immediateUpdate) {
     return showDialog(
-      context: context,
+      context: context!,
       barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
@@ -72,19 +72,20 @@ Future<void> promptAppUpdate(BuildContext context) async {
 }
 
 Future<UpdateMode> checkAppUpdate({
-  @required RemoteConfigRepository remoteConfigRepository,
+  @required RemoteConfigRepository? remoteConfigRepository,
 }) async {
   final keyProvider = platformKeyProvider();
 
-  final currentVersion = int.parse(await getCurrentAppVersion());
-  final latestStableVersion = int.parse(
-    remoteConfigRepository.getString(
-      keyProvider.keyLatestStableVersion,
+  String? currentAppVersion = await getCurrentAppVersion();
+  final currentVersion = int?.parse(currentAppVersion!);
+  final latestStableVersion = int?.parse(
+    remoteConfigRepository!.getString(
+      (keyProvider!.keyLatestStableVersion)!,
     ),
   );
-  final latestVersion = int.parse(
+  final latestVersion = int?.parse(
     remoteConfigRepository.getString(
-      keyProvider.keyLatestVersion,
+      (keyProvider.keyLatestVersion)!,
     ),
   );
 
@@ -99,19 +100,19 @@ Future<UpdateMode> checkAppUpdate({
   return UpdateMode.flexibleUpdate;
 }
 
-Future<String> getCurrentAppVersion() async {
+Future<String?> getCurrentAppVersion() async {
   final packageInfo = await PackageInfo.fromPlatform();
   return packageInfo.buildNumber;
 }
 
 Future<void> openStore() async {
-  String url;
+  String? url;
   if (Platform.isAndroid) {
     url = androidPlayStoreUrl;
   } else if (Platform.isIOS) {
     url = iosAppStoreUrl;
   }
-  if (await canLaunch(url)) {
+  if (await canLaunch(url!)) {
     await launch(url);
   }
 }

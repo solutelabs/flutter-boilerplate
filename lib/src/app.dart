@@ -84,10 +84,10 @@ class _AppState extends State<App> {
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
-        EasyLocalization.of(context).delegate,
+        EasyLocalization.of(context)!.delegate,
       ],
-      locale: EasyLocalization.of(context).locale,
-      supportedLocales: EasyLocalization.of(context).supportedLocales,
+      locale: EasyLocalization.of(context)!.locale,
+      supportedLocales: EasyLocalization.of(context)!.supportedLocales,
       navigatorObservers: [
         navigationObserverAnalytics(),
       ],
@@ -109,12 +109,12 @@ class _AppState extends State<App> {
                 ElevatedButton(
                   onPressed: () async {
                     const url = 'https://jsonplaceholder.typicode.com/photos';
-                    final client = HttpClientWithInterceptor.build(
+                    final client = InterceptedClient.build(
                       interceptors: [
                         HttpPerformanceInterceptor(),
                       ],
                     );
-                    await client.get(url);
+                    await client.get(Uri.parse(url));
                     debugPrint("HTTP RESPONSE");
 
                     final dio = Dio();
