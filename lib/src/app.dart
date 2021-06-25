@@ -7,6 +7,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_base_project/config.dart';
 import 'package:flutter_base_project/src/analytics/analytics.dart';
 import 'package:flutter_base_project/src/app_update/app_update.dart';
@@ -19,6 +20,8 @@ import 'package:performance_interceptor/performance_interceptor.dart';
 
 Future<void> initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   await Firebase.initializeApp();
 
@@ -81,10 +84,10 @@ class _AppState extends State<App> {
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
-        EasyLocalization.of(context).delegate,
+        EasyLocalization.of(context)!.delegate,
       ],
-      locale: EasyLocalization.of(context).locale,
-      supportedLocales: EasyLocalization.of(context).supportedLocales,
+      locale: EasyLocalization.of(context)!.locale,
+      supportedLocales: EasyLocalization.of(context)!.supportedLocales,
       navigatorObservers: [
         navigationObserverAnalytics(),
       ],
@@ -106,12 +109,12 @@ class _AppState extends State<App> {
                 ElevatedButton(
                   onPressed: () async {
                     const url = 'https://jsonplaceholder.typicode.com/photos';
-                    final client = HttpClientWithInterceptor.build(
+                    final client = InterceptedClient.build(
                       interceptors: [
                         HttpPerformanceInterceptor(),
                       ],
                     );
-                    await client.get(url);
+                    await client.get(Uri.parse(url));
                     debugPrint("HTTP RESPONSE");
 
                     final dio = Dio();

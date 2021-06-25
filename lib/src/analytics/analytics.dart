@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base_project/src/analytics/firebase_analytics_logger.dart';
 
 abstract class AnalyticsLogger {
-  void loginUser({Map<String, dynamic> userData});
+  void loginUser({Map<String, dynamic>? userData});
 
   void logoutUser();
 
-  void logEvent(String eventName, Map<String, dynamic> params);
+  void logEvent(String? eventName, Map<String, dynamic>? params);
 
-  void setCurrentScreen(String screenName);
+  void setCurrentScreen(String? screenName);
 }
 
 AnalyticsLogger getAnalysisLogger() {
