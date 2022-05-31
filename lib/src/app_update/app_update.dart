@@ -1,14 +1,12 @@
 import 'dart:io' show Platform;
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/app_constants.dart';
 import 'package:flutter_base_project/src/app_update/app_update_key_provider.dart';
 import 'package:flutter_base_project/src/remote_config/remote_config_repository.dart';
-import 'package:package_info/package_info.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 enum UpdateMode { noUpdate, flexibleUpdate, immediateUpdate }
 
@@ -112,7 +110,10 @@ Future<void> openStore() async {
   } else if (Platform.isIOS) {
     url = iosAppStoreUrl;
   }
-  if (await canLaunch(url!)) {
-    await launch(url);
+  if (await canLaunchUrlString(url!)) {
+    await launchUrlString(
+      url,
+      mode: LaunchMode.externalApplication,
+    );
   }
 }

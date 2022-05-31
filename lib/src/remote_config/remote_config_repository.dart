@@ -3,24 +3,24 @@ import 'package:flutter/services.dart';
 
 class RemoteConfigRepository {
   static final _instance = RemoteConfigRepository._();
-  RemoteConfig? _config;
+  FirebaseRemoteConfig? _config;
 
   factory RemoteConfigRepository() => _instance;
 
   RemoteConfigRepository._();
 
   Future<void> initConfig() async {
-    if (_config == null) {
-      _config = await RemoteConfig.instance;
-    }
+    _config ??= FirebaseRemoteConfig.instance;
   }
 
   Future<void> syncConfig() async {
     try {
-      await _config!.setConfigSettings(RemoteConfigSettings(
-        fetchTimeout: const Duration(seconds: 3),
-        minimumFetchInterval: Duration.zero,
-      ));
+      await _config!.setConfigSettings(
+        RemoteConfigSettings(
+          fetchTimeout: const Duration(seconds: 3),
+          minimumFetchInterval: Duration.zero,
+        ),
+      );
 
       await _config!.fetchAndActivate();
     } catch (err) {

@@ -79,7 +79,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      //TODO Change App Title
+      //Change App Title
       title: 'Flutter Demo',
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,

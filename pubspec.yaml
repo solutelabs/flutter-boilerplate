@@ -6,7 +6,7 @@ version: 1.0.0+2
 publish_to: none
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.1 <3.0.0"
 
 dependencies:
   flutter:
@@ -14,35 +14,35 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  easy_localization: ^3.0.0
+  easy_localization: ^3.0.1
 
-  device_info: ^2.0.2
+  device_info_plus: ^3.2.3
 
-  package_info: ^2.0.2
+  package_info_plus: ^1.4.2
 
-  url_launcher: ^6.0.6
+  url_launcher: ^6.1.2
 
   #Firebase
-  firebase_core: ^1.3.0
-  firebase_crashlytics: ^2.0.6
-  firebase_analytics: ^8.1.2
-  firebase_remote_config: ^0.10.0+2
+  firebase_core: ^1.17.1
+  firebase_crashlytics: ^2.8.1
+  firebase_analytics: ^9.1.9
+  firebase_remote_config: ^2.0.8
 
   performance_interceptor:
     git:
       url: https://github.com/kalyanig-solutelabs/firebase_performance_interceptor.git
 
-  connectivity: ^3.0.6
-  shared_preferences: ^2.0.6
-  permission_handler: ^8.1.1
-  cached_network_image: ^3.0.0
-  path_provider: ^2.0.2
-  provider: ^5.0.0
+  connectivity_plus: ^2.3.1
+  shared_preferences: ^2.0.15
+  permission_handler: ^9.2.0
+  cached_network_image: ^3.2.1
+  path_provider: ^2.0.10
+  provider: ^6.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  lint: ^1.5.3
+  flutter_lints: ^2.0.1
 
 flutter:
   uses-material-design: true

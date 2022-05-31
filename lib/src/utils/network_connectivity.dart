@@ -1,4 +1,4 @@
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_base_project/src/utils/custom_exceptions.dart';
 
 abstract class NetworkConnectivityChecker {
