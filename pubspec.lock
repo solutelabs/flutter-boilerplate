@@ -280,21 +280,21 @@ packages:
       name: firebase_performance
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.1+5"
+    version: "0.8.0+13"
   firebase_performance_platform_interface:
     dependency: transitive
     description:
       name: firebase_performance_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1+8"
+    version: "0.1.1+7"
   firebase_performance_web:
     dependency: transitive
     description:
       name: firebase_performance_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.3+1"
+    version: "0.1.0+13"
   firebase_remote_config:
     dependency: "direct main"
     description:
@@ -551,8 +551,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: cfb39e4c31c935cf0c89b603e48622b59de45564
-      url: "https://github.com/kalyanig-solutelabs/firebase_performance_interceptor.git"
+      resolved-ref: "01e267f55f2eb53e0389d1c7c6874921deaa50a5"
+      url: "https://github.com/nisarg-solutelabs/firebase_performance_interceptor"
     source: git
     version: "0.0.1"
   permission_handler:

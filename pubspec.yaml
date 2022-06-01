@@ -30,7 +30,7 @@ dependencies:
 
   performance_interceptor:
     git:
-      url: https://github.com/kalyanig-solutelabs/firebase_performance_interceptor.git
+      url: https://github.com/nisarg-solutelabs/firebase_performance_interceptor
 
   connectivity_plus: ^2.3.1
   shared_preferences: ^2.0.15
