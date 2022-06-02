@@ -11,7 +11,7 @@ class FirebaseAnalyticsLogger implements AnalyticsLogger {
   }
 
   FirebaseAnalyticsLogger._() {
-    _client = FirebaseAnalytics();
+    _client = FirebaseAnalytics.instance;
   }
 
   @override
@@ -25,7 +25,7 @@ class FirebaseAnalyticsLogger implements AnalyticsLogger {
   @override
   void loginUser({Map<String, dynamic>? userData}) {
     _client!.logLogin();
-    _client!.setUserId(userData!['id'] as String);
+    _client!.setUserId(id: userData!['id'] as String);
     _client!.setUserProperty(name: 'email', value: userData['email'] as String);
     _client!.setUserProperty(
       name: 'name',
@@ -36,7 +36,7 @@ class FirebaseAnalyticsLogger implements AnalyticsLogger {
   @override
   void logoutUser() {
     _client!.logEvent(name: "SignOut");
-    _client!.setUserId(null);
+    _client!.setUserId();
     _client!.setUserProperty(name: 'email', value: null);
     _client!.setUserProperty(name: 'name', value: null);
   }
